@@ -1,0 +1,13 @@
+server:
+  port: 8761
+eureka:
+  instance:
+    hostname: http://localhost
+    statusPageUrl: http://${eureka.hostname}/info
+    healthCheckUrl: http://${eureka.hostname}/health
+    homePageUrl: http://${eureka.hostname}/
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    fetch-registry: false
+    register-with-eureka: false
