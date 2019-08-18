@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 @SpringBootApplication
-@EnableConfigurationProperties(Application.UriConfiguration.class)
+@EnableConfigurationProperties(MyFirstApiGateway.UriConfiguration.class)
 @RestController
-public class Application {
+public class MyFirstApiGateway {
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(MyFirstApiGateway.class, args);
     }
 
     @Bean

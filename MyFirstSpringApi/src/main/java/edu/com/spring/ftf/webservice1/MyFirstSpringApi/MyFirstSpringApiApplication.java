@@ -6,34 +6,59 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @EnableDiscoveryClient
 @SpringBootApplication
 public class MyFirstSpringApiApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(MyFirstSpringApiApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(MyFirstSpringApiApplication.class, args);
+    }
 
 }
 
 @RestController
-class ServiceInstanceRestController  {
-	private final DiscoveryClient discoveryClient;
+class ServiceInstanceRestController {
+    private final DiscoveryClient discoveryClient;
 
 
-	public ServiceInstanceRestController(@Autowired DiscoveryClient discoveryClient) {
-		this.discoveryClient = discoveryClient;
-	}
+    public ServiceInstanceRestController(@Autowired DiscoveryClient discoveryClient) {
+        this.discoveryClient = discoveryClient;
+    }
 
-	@RequestMapping("/service-instances/{applicationName}")
-	public List<ServiceInstance> serviceInstancesByApplicationName(
-			@PathVariable String applicationName) {
-		return this.discoveryClient.getInstances(applicationName);
-	}
+    @RequestMapping("/service-instances")
+    public List<ServiceInstance> serviceInstancesByApplicationName() {
+        List<ServiceInstance> serviceInstances = new ArrayList<>();
+        this.discoveryClient.getServices().forEach(s -> {
+            serviceInstances.addAll(this.discoveryClient.getInstances(s));
+        });
+        return serviceInstances;
+    }
+
+    @GetMapping("/")
+    public String index(HttpServletRequest request) {
+        return "index " + request.getRequestURI();
+    }
+
+    @GetMapping("/temp")
+    public String status(HttpServletRequest request) {
+        return request.getRequestURI();
+    }
+
+    @GetMapping("/asdfasdf")
+    public String t2(HttpServletRequest request) {
+        return request.getRequestURI();
+    }
+
+    @GetMapping("/?<segment>.*")
+    public String handle(HttpServletRequest request) {
+        return request.getRequestURI();
+    }
 }

@@ -3,7 +3,7 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka
 server:
-  port: 0
+  port: 63196
 spring:
   application:
     name: PhotoAppApi-Users
