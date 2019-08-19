@@ -4,6 +4,10 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka
+    registry-fetch-interval-seconds: 5
+    eureka-service-url-poll-interval-seconds: 5
+  instance:
+    lease-renewal-interval-in-seconds: 5
 spring:
   application:
     name: ApiGateway
@@ -15,10 +19,16 @@ spring:
           lower-case-service-id: true
       routes:
         - id: users
-          uri: lb://PHOTOAPPAPI-USERS/users
+          uri: lb://PHOTOAPPAPI-USERS/
           predicates:
           - Path=/users/**
           filters:
             - RewritePath=/users/(?<segment>.*), /$\{segment}
+        - id: third
+          uri:  lb://THIRDAPI-USERS/
+          predicates:
+          - Path=/third/**
+          filters:
+            - RewritePath=/third/(?<segment>.*), /$\{segment}
 
 

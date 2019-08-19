@@ -6,6 +6,10 @@ eureka:
     statusPageUrl: http://${eureka.hostname}/info
     healthCheckUrl: http://${eureka.hostname}/health
     homePageUrl: http://${eureka.hostname}/
+    lease-renewal-interval-in-seconds: 5
+  server:
+    a-s-g-update-interval-ms: 5
+    peer-eureka-nodes-update-interval-ms: 5
 spring:
   application:
     name: PhotoAppApi-eureka-server
@@ -14,3 +18,4 @@ spring:
 #      defaultZone: http://localhost:8761/eureka
     fetch-registry: false
     register-with-eureka: false
+ping

@@ -1,0 +1,9 @@
+server:
+  port: 63198
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+spring:
+  application:
+    name: ThirdApi-Users
