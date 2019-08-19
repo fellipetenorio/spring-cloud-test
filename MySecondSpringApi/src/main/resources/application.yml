@@ -1,9 +1,15 @@
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:8761/eureka
 server:
   port: 63197
 spring:
   application:
     name: PhotoAppApi-Users
+ping-server:
+  ribbon:
+    eureka:
+      enabled: false
+    listOfServers: localhost:9092,localhost:9999
+    ServerListRefreshInterval: 15000
